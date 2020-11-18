@@ -65,13 +65,13 @@ init.install = function install(_Vue, { appId }) {
         if (typeof window.Intercom === 'function') {
           this.$intercom._init()
           this.$intercom._call('reattach_activator')
-          this.$intercom.update()
+          this.$intercom.update({app_id: appId})
         } else {
           const placeholder = (...args) => placeholder.c(args)
           placeholder.q = []
           placeholder.c = args => placeholder.q.push(args)
           window.Intercom = placeholder
-          const loaded = () => init.loadScript(appId, () => this.$intercom._init())
+          const loaded = () => init.loadScript(() => this.$intercom._init())
           if (document.readyState === 'complete') {
             loaded()
           } else if (window.attachEvent) {
@@ -89,10 +89,11 @@ init.install = function install(_Vue, { appId }) {
   })
 }
 
-init.loadScript = function loadScript(appId, done) {
+init.loadScript = function loadScript(done) {
+  console.log("rahulkanneri/vue-intercom");
   const script = document.createElement('script')
   script.async = true
-  script.src = `https://widget.intercom.io/widget/${appId}`
+  script.src = `https://js.intercomcdn.com/shim.latest.js`
   const firstScript = document.getElementsByTagName('script')[0]
   firstScript.parentNode.insertBefore(script, firstScript)
   script.onload = done
