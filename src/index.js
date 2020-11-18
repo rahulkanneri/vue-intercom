@@ -90,6 +90,7 @@ init.install = function install(_Vue, { appId }) {
 }
 
 init.loadScript = function loadScript(done) {
+  console.log("rahulkanneri/vue-intercom");
   const script = document.createElement('script')
   script.async = true
   script.src = `https://js.intercomcdn.com/shim.latest.js`
